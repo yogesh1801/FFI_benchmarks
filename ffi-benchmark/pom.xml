@@ -13,6 +13,7 @@
         <maven.compiler.target>23</maven.compiler.target>
         <maven.compiler.release>23</maven.compiler.release>
         <jmh.version>1.37</jmh.version>
+        <flatbuff.version>24.3.25</flatbuff.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- Skip tests by default -->
         <maven.test.skip>true</maven.test.skip>
@@ -30,6 +31,11 @@
             <artifactId>jmh-generator-annprocess</artifactId>
             <version>${jmh.version}</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.flatbuffers</groupId>
+            <artifactId>flatbuffers-java</artifactId>
+            <version>${flatbuff.version}</version>
         </dependency>
     </dependencies>
 
@@ -55,6 +61,54 @@
                     </annotationProcessorPaths>
                 </configuration>
             </plugin>
+            <plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-dependency-plugin</artifactId>
+    <version>3.6.0</version>
+    <executions>
+        <execution>
+            <id>build-classpath</id>
+            <phase>generate-sources</phase>
+            <goals>
+                <goal>build-classpath</goal>
+            </goals>
+            <configuration>
+                <outputProperty>maven.dependency.classpath</outputProperty>
+            </configuration>
+        </execution>
+    </executions>
+</plugin>
+            <plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-antrun-plugin</artifactId>
+    <version>3.1.0</version>
+    <executions>
+        <execution>
+            <phase>compile</phase>
+            <configuration>
+                <target>
+                    <exec executable="javac" failonerror="true">
+                        <arg value="-h"/>
+                        <arg value="src/main/cpp"/>
+                        <arg value="-cp"/>
+                        <arg path="${maven.dependency.classpath}:target/classes"/>
+                        <arg value="src/main/java/com/ffi_benchmark/FlatBufferDemo.java"/>
+                    </exec>
+                </target>
+            </configuration>
+            <goals>
+                <goal>run</goal>
+            </goals>
+        </execution>
+    </executions>
+    <dependencies>
+        <dependency>
+            <groupId>com.google.flatbuffers</groupId>
+            <artifactId>flatbuffers-java</artifactId>
+            <version>${flatbuff.version}</version>
+        </dependency>
+    </dependencies>
+</plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>

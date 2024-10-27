@@ -1,4 +1,5 @@
 export JAVA_HOME="C:/Program Files/Java/jdk-23"
+export FLAT_BUFF="C:/flatbuffers"
 
 g++ -shared \
     -I "$JAVA_HOME/include" \
@@ -11,3 +12,10 @@ g++ -shared \
     -I "$JAVA_HOME/include/win32" \
     -o target/fibbonaci.dll \
     src/main/cpp/fibbonaci.cpp
+
+g++ -shared \
+    -I "$JAVA_HOME/include" \
+    -I "$JAVA_HOME/include/win32" \
+    -I "$FLAT_BUFF/include" \
+    -o target/flatbufferdemo.dll \
+    src/main/cpp/flatbufferdemo.cpp
