@@ -19,11 +19,7 @@ JNIEXPORT void JNICALL Java_com_ffi_1benchmark_FlatBufferDemo_readFlatBufferCpp
         const char* name = person->name()->c_str();
         const char* gender = person->gender()->c_str();
         int32_t age = person->age();
-        
-        printf("Name: %s\n", name);
-        printf("Gender: %s\n", gender);
-        printf("Age: %d\n", age);
     }
-    
+
     env->ReleaseByteArrayElements(arr, buffer, JNI_ABORT);
 }
