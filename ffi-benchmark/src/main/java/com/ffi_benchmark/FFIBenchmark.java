@@ -25,12 +25,14 @@ public class FFIBenchmark {
     private Addition addition;
     private Fibbonaci fibbonaci;
     private FlatBufferDemo flatBufferDemo;
+    private AdditionFFI additionFFI;
     
     @Setup
     public void setup() {
         addition = new Addition();
         fibbonaci = new Fibbonaci();
         flatBufferDemo = new FlatBufferDemo();
+        additionFFI = new AdditionFFI();
     }
 
     @Benchmark
@@ -56,6 +58,11 @@ public class FFIBenchmark {
     @Benchmark
     public void writeUserData() {
         flatBufferDemo.writeUserData();
+    }
+
+    @Benchmark
+    public int additionFFI() {
+        return additionFFI.addCppFFI(5, 3);
     }
 
     public static void main(String[] args) throws Exception {

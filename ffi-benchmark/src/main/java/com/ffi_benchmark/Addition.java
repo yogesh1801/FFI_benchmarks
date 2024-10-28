@@ -1,6 +1,7 @@
 package com.ffi_benchmark;
 
 public class Addition {
+
     static {
         System.loadLibrary("addition");
     }

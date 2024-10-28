@@ -1,6 +1,9 @@
 export JAVA_HOME="C:/Program Files/Java/jdk-23"
 export FLAT_BUFF="C:/flatbuffers"
 
+mvn clean install
+mvn compile
+
 g++ -shared \
     -I "$JAVA_HOME/include" \
     -I "$JAVA_HOME/include/win32" \
@@ -19,3 +22,7 @@ g++ -shared \
     -I "$FLAT_BUFF/include" \
     -o target/flatbufferdemo.dll \
     src/main/cpp/flatbufferdemo.cpp
+
+g++ -shared \
+    -o target/adderffi.dll \
+    -Wl,--add-stdcall-alias src/main/cpp/adderffi.cpp 
