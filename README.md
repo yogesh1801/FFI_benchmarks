@@ -1,4 +1,6 @@
-# Foreign Function Interface (FFI) in Java - https://docs.oracle.com/en/java/javase/23/core/foreign-function-and-memory-api.html
+# Foreign Function Interface (FFI) in Java
+
+source - https://docs.oracle.com/en/java/javase/23/core/foreign-function-and-memory-api.html
 
 ## Overview
 FFI is a mechanism that allows functions written in one programming language to be called from another language. In Java, this is primarily accomplished through the Java Native Interface (JNI).
