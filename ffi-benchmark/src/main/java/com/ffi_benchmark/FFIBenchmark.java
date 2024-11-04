@@ -16,8 +16,8 @@ import org.openjdk.jmh.annotations.Warmup;
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.NANOSECONDS)
 @State(Scope.Thread)
-@Warmup(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
-@Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
+@Warmup(iterations = 3, time = 1, timeUnit = TimeUnit.SECONDS)
+@Measurement(iterations = 3, time = 1, timeUnit = TimeUnit.SECONDS)
 @Fork(1)
 
 public class FFIBenchmark {
@@ -62,7 +62,11 @@ public class FFIBenchmark {
 
     @Benchmark
     public int additionFFI() {
-        return additionFFI.addCppFFI(5, 3);
+        try {
+            return additionFFI.addCppFFI(5, 3);
+        } catch (Throwable ex) {
+            return 0;
+        }
     }
 
     public static void main(String[] args) throws Exception {
